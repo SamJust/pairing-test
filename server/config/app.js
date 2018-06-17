@@ -32,7 +32,7 @@ app.post('/unpaired', (req, res)=>{
         res.json(unpairedNumber);
       });
     }
-    else res.json(res.json(unpairedNumber));
+    else res.json(unpairedNumber);
   }).catch(err=>{
     console.log(err.message);
   });

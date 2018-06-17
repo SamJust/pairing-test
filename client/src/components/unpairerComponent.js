@@ -24,10 +24,10 @@ class UnpairerComponent extends React.Component {
   render () {
     return (<div className="unpairer">
         <Link to="/statistic" > statistics </Link>
-        <label for="exampleInputEmail1">Enter numbers</label>
+        <label>Enter numbers</label>
         <input type="text" placeholder="Numbers" ref="numbers"/>
         <span>{this.state.result}</span>
-        <input type="button" className="btn btn-primary" onClick={this.buttonClick} value="Unpair"/>
+        <input type="button" className="btn btn-primary" onClick={this.buttonClick} value="Send"/>
       </div>);
   }
 }
