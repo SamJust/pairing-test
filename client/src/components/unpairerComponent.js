@@ -14,18 +14,20 @@ class UnpairerComponent extends React.Component {
   buttonClick = ()=>{
     let inputArray = this.refs.numbers.value.split(',');
     axios.post('/unpaired',{data:inputArray}).then(res =>{
-      this.setState({result: res.data});
+      if(res.status === 200)this.setState({result: res.data});
+      else this.setState({result:'All numbers in given array are paired'});
     }).catch(err=>{
       console.log(err.messaged);
     });
   }
 
   render () {
-    return (<div>
+    return (<div className="unpairer">
         <Link to="/statistic" > statistics </Link>
+        <label for="exampleInputEmail1">Enter numbers</label>
         <input type="text" placeholder="Numbers" ref="numbers"/>
-        <input type="button" onClick={this.buttonClick}/>
-        {this.state.result}
+        <span>{this.state.result}</span>
+        <input type="button" className="btn btn-primary" onClick={this.buttonClick} value="Unpair"/>
       </div>);
   }
 }

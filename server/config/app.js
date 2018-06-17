@@ -21,22 +21,25 @@ app.use(jsonBodyParser);
 
 app.post('/unpaired', (req, res)=>{
   let unpairedNumber = arrayUnpairer(req.body.data);
-  Statisctics.findOne({number: unpairedNumber}).exec().then(data =>{
-    if(!data) return Statisctics.create({number: unpairedNumber, amount: 1});
-    else return Statisctics.findByIdAndUpdate(data._id, {
-      $set:{
-        amount:data.amount+1
-      }
-    });
-  }).then(data => {
-    res.json(unpairedNumber);
-  }).catch(err => {
+  if(!unpairedNumber) return res.sendStatus(204);
+  Statisctics.update({number: unpairedNumber}, {
+    $inc:{
+      count:1
+    }
+  }).then(data=>{
+    if(data.nModified === 0){
+      Statisctics.create({number: unpairedNumber, count: 1}).then(data=>{
+        res.json(unpairedNumber);
+      });
+    }
+    else res.json(res.json(unpairedNumber));
+  }).catch(err=>{
     console.log(err.message);
   });
 });
 
 app.get('/statistic', (req, res)=>{
-  Statisctics.find({}, {_id:0, __v:0}).exec().then(data => {
+  Statisctics.find({}, {_id:0, __v:0}).then(data => {
     if(!data) res.json([]);
     else res.json(data);
   }).catch(err => {

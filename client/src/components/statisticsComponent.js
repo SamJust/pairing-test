@@ -7,14 +7,16 @@ class StatisticsComponent extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      statistics:[]
+      statistics:[],
+      loading: true
     };
   }
 
   componentDidMount(){
     axios.get('/statistic').then(res=>{
       this.setState({
-        statistics:res.data
+        statistics:res.data,
+        loading: false
       });
     }).catch(err=>{
       console.log(err.message);
@@ -22,9 +24,15 @@ class StatisticsComponent extends React.Component {
   }
 
   render () {
-    return (<div>
+    return (<div className="statistics">
         <Link to="/unpaired" > unpairer </Link>
-        {this.state.statistics.map((item, index)=>(<p key={index}>{item.number} {item.amount}</p>))}
+        {(this.state.loading)?<p>Loading...</p>:
+        <table border="2" >
+          <tr>
+            <th>Number</th> <th>Count</th>
+          </tr>
+          {this.state.statistics.map((item, index)=>(<tr key={index}><td>{item.number}</td><td>{item.count}</td></tr>))}
+        </table>}
       </div>);
   }
 }
