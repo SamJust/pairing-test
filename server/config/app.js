@@ -6,9 +6,9 @@ const express = require('express')
 
 mongoose.connect('mongodb://admin:admin1@ds161700.mlab.com:61700/pairing-test').then(()=>{
   console.log('Connected to a DB');
-}, err =>{
+}).catch(err =>{
   console.log(`An error connecting to a DB`);
-  console.log(`${err.messaged}`);
+  console.log(`${err.message}`);
 });
 
 let Statisctics = require('../models').Statisctics;
