@@ -20,6 +20,9 @@ class StatisticsComponent extends React.Component {
       });
     }).catch(err=>{
       console.log(err.message);
+      this.setState({
+        loading: false
+      });
     });
   }
 

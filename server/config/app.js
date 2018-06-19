@@ -34,6 +34,7 @@ app.post('/unpaired', (req, res)=>{
     }
     else res.json(unpairedNumber);
   }).catch(err=>{
+    res.sendStatus(500);
     console.log(err.message);
   });
 });
@@ -43,6 +44,7 @@ app.get('/statistic', (req, res)=>{
     if(!data) res.json([]);
     else res.json(data);
   }).catch(err => {
+    res.sendStatus(500);
     console.log(err.message);
   });
 });
@@ -50,3 +52,5 @@ app.get('/statistic', (req, res)=>{
 app.listen(PORT, ()=>{
   console.log(`Listening to port ${PORT}`);
 });
+
+module.exports = app;

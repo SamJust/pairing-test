@@ -17,6 +17,7 @@ class UnpairerComponent extends React.Component {
       if(res.status === 200)this.setState({result: res.data});
       else this.setState({result:'All numbers in given array are paired'});
     }).catch(err=>{
+      this.setState({result:'An error occured while procesing your request'});
       console.log(err.messaged);
     });
   }
